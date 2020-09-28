@@ -1,9 +1,13 @@
 {{$currentNode := .}}
 <div class="docs-menu">
+  {{ if eq .Parent.Permalink .Site.BaseURL }}
   <h4>{{ .Section | humanize }}</h4>
+  {{ else }}
+  <h4><a href="{{ .Parent.Permalink }}">{{ .Section | humanize }}</a></h4>
+  {{ end }}
   <ul>
     {{ range where .Site.RegularPages "Section" .Section }}
-    <li class="{{ if eq .File.UniqueID $currentNode.File.UniqueID }}active {{ end }}">
+    <li class="{{ if eq .File.UniqueID $currentNode.File.UniqueID }} active {{ end }}">
       <a href="{{ .Permalink }}">{{ .Title }}</a>
     </li>
     {{ end }}
